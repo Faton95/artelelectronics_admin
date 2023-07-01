@@ -28,7 +28,7 @@ export async function postAPI(url, body) {
             return response;
         }).then(data => {
         if(data) {
-            window.location.href = '/admin/dashboard'
+            window.location.href = '/#/admin/dashboard'
         }
     })
         .catch((err) => {
