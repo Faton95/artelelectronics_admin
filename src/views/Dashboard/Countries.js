@@ -1,18 +1,17 @@
 import React, {useState} from "react";
 import {
-  Box,
   Flex,
   Button,
   FormControl,
   FormLabel,
   Input,
-  Link,
   Switch,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import CustomEditor from "components/Editor/Editor";
 import {postAPI} from "../../API/post";
+import { Select } from '@chakra-ui/react'
 
 function News() {
 
@@ -59,58 +58,29 @@ function News() {
                   fontWeight='bold'
                   textAlign='center'
                   mb='22px'>
-                Добавить новость
+                Добавить страны
               </Text>
               <FormControl>
                 <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                  Титуль
+                  Выберите континент
                 </FormLabel>
-                <Input
-                    value={title}
-                    variant='auth'
-                    fontSize='sm'
-                    ms='4px'
-                    type='text'
-                    placeholder='Титуль'
-                    mb='24px'
-                    size='lg'
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+                <Select placeholder=''>
+                  <option value='option1'>Азия</option>
+                  <option value='option2'>Европа</option>
+                  <option value='option3'>Африка</option>
+                  <option value='option1'>Северная Америка</option>
+                  <option value='option2'>Южная Америка</option>
+                  <option value='option3'>Австралия</option>
+                </Select>
                 <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                  Дата публикации
+                  Выберите страну
                 </FormLabel>
-                <Input
-                    value={publishDate}
-                    variant='auth'
-                    fontSize='sm'
-                    ms='4px'
-                    type='date'
-                    placeholder='Дата публикации'
-                    mb='24px'
-                    size='lg'
-                    onChange={(e) => setPublishDate(e.target.value)}
-                />
-                <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                  Добавить ссылку для видео
-                </FormLabel>
-                <Input
-                    value={url}
-                    variant='auth'
-                    fontSize='sm'
-                    ms='4px'
-                    type='url'
-                    placeholder='Добавить ссылку'
-                    mb='24px'
-                    size='lg'
-                    onChange={(e) => setUrl(e.target.value)}
-                />
-                <FormControl display='flex' alignItems='center' mb='24px'>
-                  <Switch value={addToCarousel} id='remember-login' colorScheme='blue' me='10px' onChange={(e) => setAddToCarousel(!addToCarousel)} />
-                  <FormLabel htmlFor='remember-login' mb='0' fontWeight='normal'>
-                    Добавить в карусель
-                  </FormLabel>
-                </FormControl>
-                <CustomEditor handleNews={handleNews}/>
+                <Select placeholder=''>
+                  <option value='option1'>Узбекистан</option>
+                  <option value='option2'>Россия</option>
+                  <option value='option3'>Италия</option>
+                </Select>
+                <br />
                 <Button
                     fontSize='10px'
                     variant='dark'
@@ -118,9 +88,8 @@ function News() {
                     w='100%'
                     h='45'
                     mb='24px'
-                    onClick={handleSubmit}
                 >
-                  Добавить новость
+                  Добавить страну
                 </Button>
               </FormControl>
             </Flex>

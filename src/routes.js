@@ -3,7 +3,7 @@ import React, { Component }  from 'react';
 import Dashboard from "views/Dashboard/Dashboard.js";
 import Tables from "views/Dashboard/Tables.js";
 import Billing from "views/Dashboard/Billing.js";
-import RTLPage from "views/RTL/RTLPage.js";
+import Countries from "views/Dashboard/Countries";
 import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
 import SignUp from "views/Pages/SignUp.js";
@@ -22,36 +22,36 @@ import {
 var dashRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Главная",
     rtlName: "لوحة القيادة",
     icon: <HomeIcon color='inherit' />,
     component: Dashboard,
     layout: "/admin",
   },
-  {
-    path: "/tables",
-    name: "Tables",
-    rtlName: "لوحة القيادة",
-    icon: <StatsIcon color='inherit' />,
-    component: Tables,
-    layout: "/admin",
-  },
-  {
-    path: "/billing",
-    name: "Billing",
-    rtlName: "لوحة القيادة",
-    icon: <CreditIcon color='inherit' />,
-    component: Billing,
-    layout: "/admin",
-  },
   // {
-  //   path: "/rtl-support-page",
-  //   name: "RTL",
-  //   rtlName: "آرتيإل",
-  //   icon: <SupportIcon color='inherit' />,
-  //   component: RTLPage,
-  //   layout: "/rtl",
+  //   path: "/tables",
+  //   name: "Tables",
+  //   rtlName: "لوحة القيادة",
+  //   icon: <StatsIcon color='inherit' />,
+  //   component: Tables,
+  //   layout: "/admin",
   // },
+  // {
+  //   path: "/billing",
+  //   name: "Billing",
+  //   rtlName: "لوحة القيادة",
+  //   icon: <CreditIcon color='inherit' />,
+  //   component: Billing,
+  //   layout: "/admin",
+  // },
+  {
+    path: "/countries",
+    name: "Страны",
+    rtlName: "آرتيإل",
+    icon: <SupportIcon color='inherit' />,
+    component: Countries,
+    layout: "/admin",
+  },
   {
     path: "/news",
     name: "Новости",
