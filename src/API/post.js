@@ -1,4 +1,4 @@
-const BASE_URL = 'https://test-api.artelelectronics.com/api/v1'
+const BASE_URL = 'https://mystage.artelelectronics.com/api/v1'
 export async function postAPI(url, body) {
     const user = JSON.parse(localStorage.getItem('token'))
 
@@ -6,12 +6,13 @@ export async function postAPI(url, body) {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            "Content-Type": "application/json",
         },
     }
 
-    if(user) {
+    if(user && !url.includes('/login')) {
         options.headers = {
+            ...options.headers,
             Authorization: `Bearer ${user?.token?.access}`
         }
     }

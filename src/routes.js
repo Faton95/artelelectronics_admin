@@ -8,6 +8,9 @@ import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
 import SignUp from "views/Pages/SignUp.js";
 import News from 'views/Dashboard/News';
+import Brand from 'views/Dashboard/Brand';
+import Catalogue from 'views/Dashboard/Catalogue';
+
 
 import {
   HomeIcon,
@@ -23,27 +26,24 @@ var dashRoutes = [
   {
     path: "/dashboard",
     name: "Главная",
-    rtlName: "لوحة القيادة",
     icon: <HomeIcon color='inherit' />,
     component: Dashboard,
     layout: "/admin",
   },
-  // {
-  //   path: "/tables",
-  //   name: "Tables",
-  //   rtlName: "لوحة القيادة",
-  //   icon: <StatsIcon color='inherit' />,
-  //   component: Tables,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/billing",
-  //   name: "Billing",
-  //   rtlName: "لوحة القيادة",
-  //   icon: <CreditIcon color='inherit' />,
-  //   component: Billing,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/tables",
+    name: "Tables",
+    icon: <StatsIcon color='inherit' />,
+    component: Tables,
+    layout: "/admin",
+  },
+  {
+    path: "/billing",
+    name: "Billing",
+    icon: <CreditIcon color='inherit' />,
+    component: Billing,
+    layout: "/admin",
+  },
   {
     path: "/supplier",
     name: "Снабженец",
@@ -96,7 +96,6 @@ var dashRoutes = [
   {
     path: "/countries",
     name: "Страны",
-    rtlName: "آرتيإل",
     icon: <SupportIcon color='inherit' />,
     component: Countries,
     layout: "/admin",
@@ -104,21 +103,32 @@ var dashRoutes = [
   {
     path: "/news",
     name: "Новости",
-    rtlName: "لوحة القيادة",
     icon: <CreditIcon color='inherit' />,
     component: News,
     layout: "/admin",
   },
   {
+    path: "/brand",
+    name: "Бренд",
+    icon: <CreditIcon color='inherit' />,
+    component: Brand,
+    layout: "/admin",
+  },
+  {
+    path: "/catalogue",
+    name: "Каталог",
+    icon: <CreditIcon color='inherit' />,
+    component: Catalogue,
+    layout: "/admin",
+  },
+  {
     name: "ACCOUNT PAGES",
     category: "account",
-    rtlName: "صفحات",
     state: "pageCollapse",
     views: [
       {
         path: "/profile",
         name: "Profile",
-        rtlName: "لوحة القيادة",
         icon: <PersonIcon color='inherit' />,
         secondaryNavbar: true,
         component: Profile,
@@ -127,7 +137,6 @@ var dashRoutes = [
       {
         path: "/signin",
         name: "Sign In",
-        rtlName: "لوحة القيادة",
         icon: <DocumentIcon color='inherit' />,
         component: SignIn,
         layout: "/auth",
@@ -135,7 +144,6 @@ var dashRoutes = [
       {
         path: "/signup",
         name: "Sign Up",
-        rtlName: "لوحة القيادة",
         icon: <RocketIcon color='inherit' />,
         component: SignUp,
         layout: "/auth",

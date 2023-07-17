@@ -23,8 +23,6 @@ function SignIn() {
       phone_number,
       password
     })
-
-    console.log("data". data)
   }
   const textColor = useColorModeValue("gray.700", "white");
   const bgForm = useColorModeValue("white", "navy.800");

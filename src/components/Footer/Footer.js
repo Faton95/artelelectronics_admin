@@ -24,11 +24,7 @@ export default function Footer(props) {
         }}
         mb={{ base: "20px", xl: "0px" }}>
         &copy; {1900 + new Date().getYear()},{" "}
-        <Text as='span'>
-          {document.documentElement.dir === "rtl"
-            ? " مصنوع من ❤️ بواسطة"
-            : "Made with ❤️ by "}
-        </Text>
+        <Text as='span'>Made with ❤️ by </Text>
         <Link
           color='blue.400'
           href='https://www.creative-tim.com'
