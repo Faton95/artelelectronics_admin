@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Box,
   Flex,
@@ -17,6 +17,9 @@ function SignIn() {
   const [password, setPassword] = useState('');
 
 
+  useEffect(() => {
+    window.localStorage.removeItem('token')
+  },[])
   const onSubmit = (e) => {
     e.preventDefault()
     const data = postAPI('/account/customer/login/', {

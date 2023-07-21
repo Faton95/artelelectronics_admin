@@ -11,9 +11,14 @@ export async function getAPI(url, body) {
         },
     }
 
-    return await fetch(BASE_URL+url, options )
-        .then((res) => {return res.json()})
-        .catch((err) => {
-            console.log(err.message);
-        });
+    try {
+        const response = await fetch(BASE_URL+url, options )
+        if (response.status === 401) {
+            window.location.href = '/#/auth/signin'
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw error;
+    }
 }
