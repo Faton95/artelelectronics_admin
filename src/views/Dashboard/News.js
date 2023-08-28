@@ -47,7 +47,7 @@ function News() {
       external_source_url: url,
       add_to_carousel: addToCarousel,
       content,
-      main_image: images?.id
+      image: images?.id
     })
   }
 

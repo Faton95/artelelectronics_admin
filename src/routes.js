@@ -1,5 +1,5 @@
 // import
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import Dashboard from "views/Dashboard/Dashboard.js";
 import Tables from "views/Dashboard/Tables.js";
 import Billing from "views/Dashboard/Billing.js";
@@ -7,10 +7,11 @@ import Countries from "views/Dashboard/Countries";
 import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
 import SignUp from "views/Pages/SignUp.js";
-import News from 'views/Dashboard/News';
-import Brand from 'views/Dashboard/Brand';
-import Catalogue from 'views/Dashboard/Catalogue';
-
+import News from "views/Dashboard/News";
+import Brand from "views/Dashboard/Brand";
+import Catalogue from "views/Dashboard/Catalogue";
+import WhereToBuy from "views/Dashboard/WhereToBuy";
+import Products from "views/Dashboard/Product/Products";
 
 import {
   HomeIcon,
@@ -21,6 +22,11 @@ import {
   RocketIcon,
   SupportIcon,
 } from "components/Icons/Icons";
+import ProductAdvantage from "views/Dashboard/Product/ProductAdvantage";
+import ProductCharacteristics from "views/Dashboard/Product/ProductCharacteristics";
+import ProductsByExcel from "views/Dashboard/Product/ProductsByExcel";
+import Color from "views/Dashboard/Color";
+import ProductPreview from "views/Dashboard/Product/ProductsPreview";
 
 var dashRoutes = [
   {
@@ -119,6 +125,55 @@ var dashRoutes = [
     name: "Каталог",
     icon: <CreditIcon color='inherit' />,
     component: Catalogue,
+    layout: "/admin",
+  },
+  {
+    path: "/where-to-buy",
+    name: "Где купить ?",
+    icon: <CreditIcon color='inherit' />,
+    component: WhereToBuy,
+    layout: "/admin",
+  },
+  {
+    path: "/color",
+    name: "Цвета",
+    icon: <CreditIcon color='inherit' />,
+    component: Color,
+    layout: "/admin",
+  },
+  {
+    path: "/excel-product",
+    name: "Продукты Excel",
+    icon: <CreditIcon color='inherit' />,
+    component: ProductsByExcel,
+    layout: "/admin",
+  },
+  {
+    path: "/product-preview",
+    name: "Предварительный просмотр продукта",
+    icon: <CreditIcon color='inherit' />,
+    component: ProductPreview,
+    layout: "/admin",
+  },
+  {
+    path: "/products",
+    name: "Продукты",
+    icon: <PersonIcon color='inherit' />,
+    component: Products,
+    layout: "/admin",
+  },
+  {
+    path: "/product-advantage",
+    name: "Преимущества продукта",
+    icon: <DocumentIcon color='inherit' />,
+    component: ProductAdvantage,
+    layout: "/admin",
+  },
+  {
+    path: "/product-characteristics",
+    name: "Характеристики продукта",
+    icon: <RocketIcon color='inherit' />,
+    component: ProductCharacteristics,
     layout: "/admin",
   },
   {
