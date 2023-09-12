@@ -13,19 +13,20 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import Card from "components/Card/Card.js";
 import { postAPI } from "../../../API/post";
 import { postImage } from "../../../API/postImage";
 import { getAPI } from "../../../API/get";
-import { patchAPI } from "../../../API/patch";
 
-function ProductsByExcel() {
+function ProductInstruction() {
   const textColor = useColorModeValue("gray.700", "white");
 
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
-  const [excel, setExcel] = useState([]);
+  const [file, setFile] = useState([]);
+  const [image, setImage] = useState([]);
 
   useEffect(() => {
     getAPI("/product/admin_view/").then((response) => setProducts(response));
@@ -35,7 +36,7 @@ function ProductsByExcel() {
     const formData = new global.FormData();
     formData.append("file", event.target.files[0]);
     postImage("/media_file/", formData)
-      .then((data) => setExcel(data))
+      .then((data) => setFile(data))
       .then((data) => (
         <>
           <Alert status='success'>
@@ -46,15 +47,26 @@ function ProductsByExcel() {
       ));
   };
 
+  const handleImage = (event) => {
+    const formData = new global.FormData();
+    formData.append("file", event.target.files[0]);
+    postImage("/media_file/", formData)
+      .then((data) => setImage(data))
+      .then((data) => (
+        <>
+          <Alert status='success'>
+            <AlertIcon />
+            Файл загружен успешно!
+          </Alert>
+        </>
+      ));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = postAPI(
-      "/product_characteristic_item/upload_excel/",
-      {
-        product,
-        file: excel?.id,
-      },
-      "/#/admin/product-instruction"
+      "/product_instruction/",
+      { title, description, product, file: file?.id, image: image?.id },
+      "/#/admin/product-advantage"
     );
   };
 
@@ -68,9 +80,19 @@ function ProductsByExcel() {
           textAlign='center'
           mb='22px'
         >
-          Добавить характеристики через Excel
+          Добавить инструкцию продукта
         </Text>
         <Grid templateColumns='repeat(5, 1fr)' gap={5} mb='20px'>
+          <FormControl>
+            <FormLabel>Название</FormLabel>
+            <Input
+              value={title}
+              variant='auth'
+              type='text'
+              placeholder='Титуль'
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </FormControl>
           <FormControl>
             <FormLabel>Продукт</FormLabel>
             <Select
@@ -86,12 +108,33 @@ function ProductsByExcel() {
             </Select>
           </FormControl>
           <FormControl>
-            <FormLabel>Добавить Excel</FormLabel>
+            <FormLabel>Добавить Файл</FormLabel>
             <Input
               type='file'
               pt='5px'
-              placeholder='Добавить Excel'
+              placeholder='Добавить Файл'
               onChange={handleFile}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Добавить Картинку</FormLabel>
+            <Input
+              type='file'
+              pt='5px'
+              placeholder='Добавить Картинку'
+              onChange={handleImage}
+            />
+          </FormControl>
+        </Grid>
+        <Grid mb='30px'>
+          <FormControl>
+            <FormLabel>Описание</FormLabel>
+            <Input
+              value={description}
+              variant='auth'
+              type='text'
+              placeholder='Описание'
+              onChange={(e) => setDescription(e.target.value)}
             />
           </FormControl>
         </Grid>
@@ -105,11 +148,11 @@ function ProductsByExcel() {
           onClick={handleSubmit}
           marginTop='auto'
         >
-          Добавить характеристики
+          Добавить инструкцию
         </Button>
       </Card>
     </Flex>
   );
 }
 
-export default ProductsByExcel;
+export default ProductInstruction;

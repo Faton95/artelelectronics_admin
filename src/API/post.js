@@ -1,4 +1,5 @@
 const BASE_URL = "https://mystage.artelelectronics.com/api/v1";
+
 export async function postAPI(url, body, redirectUrl) {
   const user = JSON.parse(localStorage.getItem("token"));
 
@@ -17,12 +18,9 @@ export async function postAPI(url, body, redirectUrl) {
     };
   }
 
-  fetch(BASE_URL + url, options)
+  return fetch(BASE_URL + url, options)
     .then((res) => res.json())
     .then((response) => {
-      if (response?.detail !== undefined) {
-        throw new Error("Network response was not ok");
-      }
       if (!user) {
         localStorage.setItem("token", JSON.stringify(response));
       }
@@ -32,8 +30,9 @@ export async function postAPI(url, body, redirectUrl) {
       if (data) {
         window.location.href = redirectUrl;
       }
+      return data;
     })
     .catch((err) => {
-      console.log(err.message);
+      return err.message;
     });
 }

@@ -6,18 +6,15 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Switch,
   Text,
-  Checkbox,
   Select,
   useColorModeValue,
   Spacer,
+  Link,
 } from "@chakra-ui/react";
-import CustomEditor from "components/Editor/Editor";
 import Card from "components/Card/Card.js";
 import { postAPI } from "../../../API/post";
 import { postImage } from "../../../API/postImage";
-import NewsTable from "../../../components/Tables/NewsTable";
 import { getAPI } from "../../../API/get";
 
 function ProductAdvantage() {
@@ -73,8 +70,13 @@ function ProductAdvantage() {
         image: image?.id,
         items,
       },
-      "/#/admin/excel-product"
+      "/#/admin/product-advantage"
     );
+    setTitle("");
+    setProduct(null);
+    setLogo([]);
+    setImage([]);
+    setItems([{ title: "" }]);
   };
 
   return (
@@ -91,12 +93,12 @@ function ProductAdvantage() {
         </Text>
         <Grid templateColumns='repeat(5, 1fr)' gap={5}>
           <FormControl>
-            <FormLabel>Название</FormLabel>
+            <FormLabel>Название преимущества</FormLabel>
             <Input
               value={title}
               variant='auth'
               type='text'
-              placeholder='Название продукта'
+              placeholder='Название'
               onChange={(e) => setTitle(e.target.value)}
             />
           </FormControl>
@@ -168,19 +170,34 @@ function ProductAdvantage() {
             </Button>
           </Flex>
         </form>
+        <Grid templateColumns='repeat(2, 1fr)' gap={5}>
+          <Button
+            fontSize='10px'
+            variant='dark'
+            fontWeight='bold'
+            w='100%'
+            h='45'
+            mb='24px'
+            onClick={handleSubmit}
+            marginTop='auto'
+          >
+            Добавить преимущество
+          </Button>
 
-        <Button
-          fontSize='10px'
-          variant='dark'
-          fontWeight='bold'
-          w='100%'
-          h='45'
-          mb='24px'
-          onClick={handleSubmit}
-          marginTop='auto'
-        >
-          Добавить продукт
-        </Button>
+          <Link href='/#/admin/product-preview'>
+            <Button
+              fontSize='10px'
+              variant='dark'
+              fontWeight='bold'
+              w='100%'
+              h='45'
+              mb='24px'
+              marginTop='auto'
+            >
+              Публиковать продукт
+            </Button>
+          </Link>
+        </Grid>
       </Card>
     </Flex>
   );

@@ -27,6 +27,8 @@ import ProductCharacteristics from "views/Dashboard/Product/ProductCharacteristi
 import ProductsByExcel from "views/Dashboard/Product/ProductsByExcel";
 import Color from "views/Dashboard/Color";
 import ProductPreview from "views/Dashboard/Product/ProductsPreview";
+import ProductVariants from "views/Dashboard/Product/ProductVariants";
+import ProductInstruction from "views/Dashboard/Product/ProductsInstruction";
 
 var dashRoutes = [
   {
@@ -142,6 +144,20 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
+    path: "/products",
+    name: "Продукты",
+    icon: <PersonIcon color='inherit' />,
+    component: Products,
+    layout: "/admin",
+  },
+  {
+    path: "/products-variants",
+    name: "Варианты продукта",
+    icon: <PersonIcon color='inherit' />,
+    component: ProductVariants,
+    layout: "/admin",
+  },
+  {
     path: "/excel-product",
     name: "Продукты Excel",
     icon: <CreditIcon color='inherit' />,
@@ -156,13 +172,6 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    path: "/products",
-    name: "Продукты",
-    icon: <PersonIcon color='inherit' />,
-    component: Products,
-    layout: "/admin",
-  },
-  {
     path: "/product-advantage",
     name: "Преимущества продукта",
     icon: <DocumentIcon color='inherit' />,
@@ -174,6 +183,13 @@ var dashRoutes = [
     name: "Характеристики продукта",
     icon: <RocketIcon color='inherit' />,
     component: ProductCharacteristics,
+    layout: "/admin",
+  },
+  {
+    path: "/product-instruction",
+    name: "Инструкция продукта",
+    icon: <RocketIcon color='inherit' />,
+    component: ProductInstruction,
     layout: "/admin",
   },
   {

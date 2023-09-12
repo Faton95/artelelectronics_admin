@@ -1,22 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Flex,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Badge,
-  Select,
-  useColorModeValue,
-  Alert,
-  AlertIcon,
-} from "@chakra-ui/react";
+import { Grid, Flex, Text, Badge, useColorModeValue } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import Card from "components/Card/Card.js";
-import { postAPI } from "../../../API/post";
-import { postImage } from "../../../API/postImage";
 import { getAPI } from "../../../API/get";
 import { patchAPI } from "../../../API/patch";
 
@@ -30,7 +15,6 @@ function ProductPreview() {
   }, []);
 
   const handlePatch = (item) => {
-    console.log("item", item);
     patchAPI(`/product/${item?.id}/publish/`, {
       is_published: !item?.is_published,
     })
@@ -43,6 +27,8 @@ function ProductPreview() {
 
     getAPI("/product/admin_view/").then((response) => setProducts(response));
   };
+
+  console.log("products", products);
 
   return (
     <Flex direction='column' pt={{ base: "120px", md: "75px" }} gap='10'>
@@ -74,7 +60,7 @@ function ProductPreview() {
                 width='50'
               />
             </div>
-            <div>{item?.category.title}</div>
+            <div>{item?.category?.title}</div>
             <div>{item?.default_variant_code}</div>
             {item?.is_published ? (
               <div>

@@ -8,22 +8,18 @@ import {
   Text,
   useColorModeValue,
   Grid,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Table,
 } from "@chakra-ui/react";
 import { postImage } from "../../API/postImage";
 import { postAPI } from "../../API/post";
 import Card from "components/Card/Card.js";
-import TablesTableRow from "../../components/Tables/TablesTableRow";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { getAPI } from "../../API/get";
 
 function Color() {
-  const borderColor = useColorModeValue("gray.200", "gray.600");
   const textColor = useColorModeValue("gray.700", "white");
-
+  const [data, setData] = useState(null);
   const [code, setCode] = useState("");
   const [image, setImage] = useState("");
   const [colors, setColors] = useState([]);
@@ -40,14 +36,29 @@ function Color() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = postAPI(
+    postAPI(
       "/color/",
       {
         code,
         image: image?.id,
       },
       "#/admin/color"
-    );
+    )
+      .then((response) => {
+        toast.success("Цвет успешно добавлен!", {
+          position: "top-right",
+          theme: "colored",
+        });
+        setData(response);
+      })
+      .catch((error) => {
+        toast.error("Цвет не был успешно добавлен, попробуйте позже.", {
+          position: "top-right",
+          theme: "colored",
+        });
+        setData(error.message);
+      });
+
     getAPI("/color/").then((response) => setColors(response));
   };
 
@@ -97,11 +108,16 @@ function Color() {
         </Grid>
         <Grid templateColumns='repeat(2, 1fr)' gap={5} mb='20px'>
           <Text as='b'>Цвет картинки</Text>
-          <Text as='b'>Код картинки</Text>
+          <Text as='b'>Название цвета</Text>
         </Grid>
 
         {colors?.map((color) => (
-          <Grid templateColumns='repeat(2, 1fr)' gap={5} mb='10px'>
+          <Grid
+            templateColumns='repeat(2, 1fr)'
+            gap={5}
+            mb='10px'
+            key={color.id}
+          >
             <div>
               <img
                 src={color?.image?.file}
@@ -114,6 +130,7 @@ function Color() {
           </Grid>
         ))}
       </Card>
+      <ToastContainer />
     </Flex>
   );
 }

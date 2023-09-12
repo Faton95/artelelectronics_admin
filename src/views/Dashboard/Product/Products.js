@@ -16,6 +16,7 @@ import Card from "components/Card/Card.js";
 import { postAPI } from "../../../API/post";
 import { postImage } from "../../../API/postImage";
 import { getAPI } from "../../../API/get";
+import { ToastContainer, toast } from "react-toastify";
 
 function Products() {
   const textColor = useColorModeValue("gray.700", "white");
@@ -34,7 +35,7 @@ function Products() {
   const [images, setImages] = useState([]);
   const [colors, setColors] = useState([]);
   const [variants, setVariants] = useState([
-    { color: null, is_default: false },
+    { color: null, code: "", is_default: false },
   ]);
 
   const handleImage = (event) => {
@@ -62,7 +63,7 @@ function Products() {
   }, []);
 
   const addVariantField = () => {
-    setVariants([...variants, { color: null, is_default: false }]);
+    setVariants([...variants, { color: null, code: "", is_default: false }]);
   };
 
   const removeVariantField = (index) => {
@@ -72,7 +73,7 @@ function Products() {
 
   const handleVariantsChange = (index, field, value) => {
     const updatedVariants = [...variants];
-    updatedVariants[index][field] = Number(value);
+    updatedVariants[index][field] = value;
     setVariants(updatedVariants);
   };
 
@@ -84,6 +85,7 @@ function Products() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const data = postAPI(
       "/product/",
       {
@@ -99,8 +101,20 @@ function Products() {
         variants,
         default_image: images?.id,
       },
-      "/#/admin/product-advantage"
-    );
+      "/#/admin/products-variants"
+    )
+      .then((response) => {
+        toast.success("Продукт успешно добавлен!", {
+          position: "top-right",
+          theme: "colored",
+        });
+      })
+      .catch((error) => {
+        toast.error("Продукт не был успешно добавлен, попробуйте позже.", {
+          position: "top-right",
+          theme: "colored",
+        });
+      });
   };
 
   return (
@@ -216,7 +230,7 @@ function Products() {
         <form onSubmit={handleSubmit}>
           {variants.map((variant, index) => (
             <div key={index}>
-              <Grid mt='30px' templateColumns='repeat(3, 1fr)' gap={5}>
+              <Grid mt='30px' templateColumns='repeat(4, 1fr)' gap={5}>
                 <FormControl>
                   <FormLabel>Выберите цвет</FormLabel>
                   <Select
@@ -230,6 +244,17 @@ function Products() {
                       <option value={color.id}>{color.code}</option>
                     ))}
                   </Select>
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Код цвета</FormLabel>
+                  <Input
+                    value={variants.code}
+                    type='text'
+                    placeholder='Код цвета'
+                    onChange={(e) =>
+                      handleVariantsChange(index, "code", e.target.value)
+                    }
+                  />
                 </FormControl>
                 <FormControl mt='25px' display='flex' alignItems='center'>
                   <FormLabel htmlFor='is_default' mb='0'>
@@ -274,6 +299,7 @@ function Products() {
           Добавить продукт
         </Button>
       </Card>
+      <ToastContainer />
     </Flex>
   );
 }
