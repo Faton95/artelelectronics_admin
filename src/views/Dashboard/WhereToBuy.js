@@ -41,7 +41,7 @@ function WhereToBuy() {
   const [region, setRegion] = useState(null);
   const [district, setDistrict] = useState(null);
 
-  const [title, setTitle] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [store_type, setStoreType] = useState("");
@@ -81,8 +81,6 @@ function WhereToBuy() {
       setDistricts(response)
     );
   };
-
-  console.log(country, region, district);
 
   const addTimeTableField = () => {
     setTimeTable([
@@ -126,6 +124,7 @@ function WhereToBuy() {
     const data = postAPI(
       "/store/",
       {
+        phone_number,
         country,
         district,
         title: "aa",
@@ -167,22 +166,22 @@ function WhereToBuy() {
           Где купить ?
         </Text>
         <FormControl>
-          {/* <Box>
+          <Box>
             <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-              Название
+              Номер Телефона
             </FormLabel>
             <Input
-              value={title}
+              value={phone_number}
               variant='auth'
               fontSize='sm'
               ms='4px'
               type='text'
-              placeholder='Название бренда'
+              placeholder='Номер телефона'
               mb='24px'
               size='lg'
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
-          </Box> */}
+          </Box>
           <Grid templateColumns='repeat(4, 1fr)' gap={5}>
             <Box>
               <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
