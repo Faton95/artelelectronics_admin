@@ -7,6 +7,7 @@ export async function getAPI(url, body) {
     body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
+      "Content-Language": "ru",
       Authorization: `Bearer ${user?.token?.access}`,
     },
   };

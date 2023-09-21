@@ -12,69 +12,65 @@ import {
 import Card from "components/Card/Card.js";
 import { postAPI } from "../../API/post";
 import { getAPI } from "../../API/get";
-import { postImage } from "../../API/postImage";
 import { Select } from "@chakra-ui/react";
 import { ToastContainer, toast } from "react-toastify";
 
 function News() {
   const textColor = useColorModeValue("gray.700", "white");
+
   const [continents, setContinents] = useState([]);
   const [continent, setContinent] = useState(null);
 
-  const [country_code, setCountryCode] = useState("");
-  const [IP, setIP] = useState("");
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState(null);
 
-  const [uzCountry, setUzCountry] = useState("");
-  const [ruCountry, setRuCountry] = useState("");
-  const [engCountry, setEngCountry] = useState("");
-
-  const [images, setImages] = useState([]);
+  const [uzDistrict, setUzDistrict] = useState("");
+  const [ruDistrict, setRuDistrict] = useState("");
+  const [engDistrict, setEngDistrict] = useState("");
 
   useEffect(() => {
     getAPI("/continent/").then((response) => setContinents(response));
   }, []);
 
-  const handleImage = (event) => {
-    const formData = new global.FormData();
-    formData.append("file", event.target.files[0]);
-    postImage("/media_file/", formData).then((data) => setImages(data));
+  const handleContinent = (continent) => {
+    setContinent(continent);
+    getAPI(`/country/?continent=${continent}`).then((response) =>
+      setCountries(response)
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = postAPI(
-      "/country/",
+      "/region/",
       {
-        continent,
-        country_code,
-        IP,
+        country: Number(country),
         languages: [
           {
             language: "uz",
-            title: uzCountry,
+            title: uzDistrict,
           },
           {
             language: "ru",
-            title: ruCountry,
+            title: ruDistrict,
           },
           {
             language: "en",
-            title: engCountry,
+            title: engDistrict,
           },
         ],
-        flag: images?.id,
       },
-      "#/admin/countries"
+      "#/admin/regions"
     )
       .then((response) => {
-        toast.success("Страна успешно добавлена!", {
+        toast.success("Область успешно добавлена!", {
           position: "top-right",
           theme: "colored",
         });
       })
       .catch((error) => {
-        toast.error("Страна не былы успешно добавлена, попробуйте позже.", {
+        toast.error("Область не была успешно добавлена, попробуйте позже.", {
           position: "top-right",
           theme: "colored",
         });
@@ -91,7 +87,7 @@ function News() {
           textAlign='center'
           mb='22px'
         >
-          Добавить Страны
+          Добавить Область
         </Text>
         <FormControl>
           <FormLabel>Континент</FormLabel>
@@ -99,12 +95,28 @@ function News() {
             value={continent}
             placeholder='Выберите Континент'
             onChange={(e) => {
-              setContinent(e.target.value);
+              handleContinent(e.target.value);
             }}
           >
             {continents?.map((continent) => (
               <option key={continent?.id} value={continent?.id}>
                 {continent?.title}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Страны</FormLabel>
+          <Select
+            value={country}
+            placeholder='Выберите Страну'
+            onChange={(e) => {
+              setCountry(e.target.value);
+            }}
+          >
+            {countries?.map((country) => (
+              <option key={country?.id} value={country?.id}>
+                {country?.title}
               </option>
             ))}
           </Select>
@@ -116,53 +128,31 @@ function News() {
           textAlign='center'
           mb='22px'
         >
-          Добавить Страну
+          Область на 3 языках
         </Text>
-        <Grid templateColumns='repeat(3, 1fr)' gap={5} mb='20px'>
-          <FormControl>
-            <FormLabel>Код страны</FormLabel>
-            <Input
-              value={country_code}
-              type='text'
-              onChange={(e) => setCountryCode(e.target.value)}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>IP</FormLabel>
-            <Input
-              value={IP}
-              type='text'
-              onChange={(e) => setIP(e.target.value)}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Флаг</FormLabel>
-            <Input type='file' pt='5px' onChange={handleImage} />
-          </FormControl>
-        </Grid>
         <Grid templateColumns='repeat(3, 1fr)' gap={5} mb='20px'>
           <FormControl>
             <FormLabel>Uz</FormLabel>
             <Input
-              value={uzCountry}
+              value={uzDistrict}
               type='text'
-              onChange={(e) => setUzCountry(e.target.value)}
+              onChange={(e) => setUzDistrict(e.target.value)}
             />
           </FormControl>
           <FormControl>
             <FormLabel>Ру</FormLabel>
             <Input
-              value={ruCountry}
+              value={ruDistrict}
               type='text'
-              onChange={(e) => setRuCountry(e.target.value)}
+              onChange={(e) => setRuDistrict(e.target.value)}
             />
           </FormControl>
           <FormControl>
             <FormLabel>Eng</FormLabel>
             <Input
-              value={engCountry}
+              value={engDistrict}
               type='text'
-              onChange={(e) => setEngCountry(e.target.value)}
+              onChange={(e) => setEngDistrict(e.target.value)}
             />
           </FormControl>
         </Grid>
@@ -176,7 +166,7 @@ function News() {
           onClick={handleSubmit}
           marginTop='auto'
         >
-          Добавить Страну
+          Добавить Область
         </Button>
       </Card>
       <ToastContainer />

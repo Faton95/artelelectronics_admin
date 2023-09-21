@@ -32,10 +32,16 @@ const weekDays = {
 };
 function WhereToBuy() {
   const textColor = useColorModeValue("gray.700", "white");
-
+  const [continents, setContinents] = useState([]);
   const [countries, setCountries] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [districts, setDistricts] = useState([]);
+
+  const [country, setCountry] = useState(null);
+  const [region, setRegion] = useState(null);
+  const [district, setDistrict] = useState(null);
+
   const [title, setTitle] = useState("");
-  const [region, setRegion] = useState(1);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [store_type, setStoreType] = useState("");
@@ -53,8 +59,30 @@ function WhereToBuy() {
   };
 
   useEffect(() => {
-    getAPI("/region/").then((response) => setCountries(response));
+    getAPI("/continent/").then((response) => setContinents(response));
   }, []);
+
+  const handleContinents = (continent) => {
+    getAPI(`/country/?continent=${continent}`).then((response) =>
+      setCountries(response)
+    );
+  };
+
+  const handleRegions = (country) => {
+    setCountry(country);
+    getAPI(`/region/?country=${country}`).then((response) =>
+      setRegions(response)
+    );
+  };
+
+  const handleDistricts = (region) => {
+    setRegion(region);
+    getAPI(`/district/?region=${region}`).then((response) =>
+      setDistricts(response)
+    );
+  };
+
+  console.log(country, region, district);
 
   const addTimeTableField = () => {
     setTimeTable([
@@ -98,7 +126,9 @@ function WhereToBuy() {
     const data = postAPI(
       "/store/",
       {
-        title,
+        country,
+        district,
+        title: "aa",
         region,
         latitude,
         longitude,
@@ -137,7 +167,7 @@ function WhereToBuy() {
           Где купить ?
         </Text>
         <FormControl>
-          <Box>
+          {/* <Box>
             <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
               Название
             </FormLabel>
@@ -152,20 +182,53 @@ function WhereToBuy() {
               size='lg'
               onChange={(e) => setTitle(e.target.value)}
             />
-          </Box>
-          <Box>
-            <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-              Выберите континент
-            </FormLabel>
-            <Select
-              placeholder=''
-              onChange={(event) => setRegion(event.target.value)}
-            >
-              {countries.map((item) => (
-                <option value={item?.id}>{item.title}</option>
-              ))}
-            </Select>
-          </Box>
+          </Box> */}
+          <Grid templateColumns='repeat(4, 1fr)' gap={5}>
+            <Box>
+              <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
+                Выберите континент
+              </FormLabel>
+              <Select onChange={(e) => handleContinents(e.target.value)}>
+                <option value=''>Выберите Континент</option>
+                {continents?.map((item) => (
+                  <option value={item?.id}>{item.title}</option>
+                ))}
+              </Select>
+            </Box>
+            <Box>
+              <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
+                Выберите страну
+              </FormLabel>
+              <Select onChange={(e) => handleRegions(e.target.value)}>
+                <option value=''>Выберите Страну</option>
+                {countries?.map((item) => (
+                  <option value={item?.id}>{item.title}</option>
+                ))}
+              </Select>
+            </Box>
+            <Box>
+              <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
+                Выберите Область
+              </FormLabel>
+              <Select onChange={(event) => handleDistricts(event.target.value)}>
+                <option value=''>Выберите Область</option>
+                {regions?.map((item) => (
+                  <option value={item?.id}>{item.title}</option>
+                ))}
+              </Select>
+            </Box>
+            <Box>
+              <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
+                Выберите Регион
+              </FormLabel>
+              <Select onChange={(event) => setDistrict(event.target.value)}>
+                <option value=''>Выберите Регион</option>
+                {districts?.map((item) => (
+                  <option value={item?.id}>{item.title}</option>
+                ))}
+              </Select>
+            </Box>
+          </Grid>
           <br />
           <Box>
             <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
@@ -201,11 +264,11 @@ function WhereToBuy() {
           </Box>
           <Box>
             <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-              Добавить картинок
+              Добавить картинку(Главная в поискавике)
             </FormLabel>
             <Input
               type='file'
-              placeholder='Добавить картинок'
+              placeholder='Добавить картинку(Главная в поискавике)'
               pt='7px'
               mb='24px'
               size='lg'
@@ -325,9 +388,9 @@ function WhereToBuy() {
               onChange={(event) => setStoreType(event.target.value)}
             >
               <option value=''>Выберите тип магазина</option>
-              <option value='Texnopark'>Brand shop</option>
-              <option value='Market'>Premium Store</option>
-              <option value='Dealer'>Market Place</option>
+              <option value={3}>Brand shop</option>
+              <option value={2}>Premium Store</option>
+              <option value={1}>Market Place</option>
             </Select>
           </Box>
           <br />

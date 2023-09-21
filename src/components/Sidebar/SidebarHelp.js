@@ -22,10 +22,11 @@ export function SidebarHelp(props) {
       direction='column'
       align='center'
       spacing='20px'
-      mb="22px"
-      mt="auto"
-      mx='20px'>
-      <Image src={SidebarHelpImage} w='110px' h="auto" />
+      mb='22px'
+      mt='auto'
+      mx='20px'
+    >
+      {/* <Image src={SidebarHelpImage} w='110px' h="auto" />
       <Flex direction='column' textAlign='center'>
         <Text fontSize='14px' color={textColor} fontWeight='bold'>
           Need help?
@@ -48,7 +49,7 @@ export function SidebarHelp(props) {
             UPGRADE TO PRO
           </Button>
         
-      </Link>
+      </Link> */}
     </Stack>
   );
 }
