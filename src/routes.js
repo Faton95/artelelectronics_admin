@@ -208,34 +208,34 @@ var dashRoutes = [
   //   component: ProductInstruction,
   //   layout: "/admin",
   // },
-  // {
-  //   name: "ACCOUNT PAGES",
-  //   category: "account",
-  //   state: "pageCollapse",
-  //   views: [
-  //     {
-  //       path: "/profile",
-  //       name: "Profile",
-  //       icon: <PersonIcon color='inherit' />,
-  //       secondaryNavbar: true,
-  //       component: Profile,
-  //       layout: "/admin",
-  //     },
-  //     {
-  //       path: "/signin",
-  //       name: "Sign In",
-  //       icon: <DocumentIcon color='inherit' />,
-  //       component: SignIn,
-  //       layout: "/auth",
-  //     },
-  //     {
-  //       path: "/signup",
-  //       name: "Sign Up",
-  //       icon: <RocketIcon color='inherit' />,
-  //       component: SignUp,
-  //       layout: "/auth",
-  //     },
-  //   ],
-  // },
+  {
+    name: "ACCOUNT PAGES",
+    category: "account",
+    state: "pageCollapse",
+    views: [
+      // {
+      //   path: "/profile",
+      //   name: "Profile",
+      //   icon: <PersonIcon color='inherit' />,
+      //   secondaryNavbar: true,
+      //   component: Profile,
+      //   layout: "/admin",
+      // },
+      {
+        path: "/signin",
+        name: "Sign In",
+        icon: <DocumentIcon color='inherit' />,
+        component: SignIn,
+        layout: "/auth",
+      },
+      // {
+      //   path: "/signup",
+      //   name: "Sign Up",
+      //   icon: <RocketIcon color='inherit' />,
+      //   component: SignUp,
+      //   layout: "/auth",
+      // },
+    ],
+  },
 ];
 export default dashRoutes;
